@@ -6,7 +6,11 @@
     <!--서블릿 이름과 실제 서블릿 클래스 매핑-->
     <servlet>
         <servlet-name>helloworld</servlet-name>
-        <servlet-class>Controller.MainController</servlet-class>
+        <servlet-class>view.HelloWorld</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>writing</servlet-name>
+        <servlet-class>Controller.BoardController</servlet-class>
     </servlet>
 
     <!--경로와 서블릿 이름 매핑-->
@@ -14,4 +18,11 @@
         <servlet-name>helloworld</servlet-name>
         <url-pattern>/helloworld</url-pattern>
     </servlet-mapping>
+    <!--경로와 서블릿 이름 매핑-->
+    <servlet-mapping>
+        <servlet-name>writing</servlet-name>
+        <url-pattern>/writing</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
