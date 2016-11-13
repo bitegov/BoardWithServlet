@@ -1,5 +1,7 @@
 package view;
 
+import DAO.DaoToMSSQL;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import java.io.PrintWriter;
  */
 public class HelloWorld extends HttpServlet {
     public void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)throws IOException,ServletException{
+        new DaoToMSSQL().connecting();
         httpServletResponse.setContentType("text/html;charset=UTF-8");
         PrintWriter out = httpServletResponse.getWriter();
         out.println("<HTML>");
@@ -20,5 +23,6 @@ public class HelloWorld extends HttpServlet {
         out.println("</BODY>");
         out.println("</HTML>");
         out.close();
+
     }
 }
