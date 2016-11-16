@@ -22,8 +22,9 @@ public class HelloWorld extends HttpServlet {
         out.println("<BODY>");
         out.println("Hello World!!");
         try {
-            BoardManager.getOurInstance().insertWriter();
-            out.println(BoardManager.getOurInstance().SelectAllOfWriter().toString());
+            out.println(BoardManager.getOurInstance().SelectAllOfWriter().get(0).getEmail());
+            out.println(BoardManager.getOurInstance().SelectAllOfWriter().get(1).getEmail());
+            out.println(BoardManager.getOurInstance().SelectAllOfWriter().get(2).getEmail());
         } catch (SQLException e) {
             e.printStackTrace();
         }
