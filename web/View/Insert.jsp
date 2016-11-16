@@ -21,9 +21,9 @@
 </br>
 <div class="container">
 
-    <form>
-        <input type="text" class="form-control" placeholder="Title"></br>
-        <textarea class="form-control" rows="10"></textarea></br>
+    <form action="/writing" method="post">
+        <input type="text" class="form-control" id="title" placeholder="Title"></br>
+        <textarea id="body" class="form-control" rows="10" placeholder="내용을 입력해주세요"></textarea></br>
         <div class="row">
             <div class="col-md-8"><!--비율을 위해 빈칸으로--></div>
             <div class="form-group col-md-2">
