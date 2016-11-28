@@ -22,17 +22,17 @@
 <div class="container">
 
     <form action="/writing" method="post">
-        <input type="text" class="form-control" id="title" placeholder="Title"></br>
-        <textarea id="body" class="form-control" rows="10" placeholder="내용을 입력해주세요"></textarea></br>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Title"></br>
+        <textarea id="body" name="body" class="form-control" rows="10" placeholder="내용을 입력해주세요"></textarea></br>
         <div class="row">
             <div class="col-md-8"><!--비율을 위해 빈칸으로--></div>
             <div class="form-group col-md-2">
-                <label class="sr-only" for="exampleInputEmail3">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email">
+                <label class="sr-only" for="email">Email address</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
             </div>
             <div class="form-group col-md-2">
-                <label class="sr-only" for="exampleInputPassword3">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
+                <label class="sr-only" for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
             </div>
         </div>
         <div class="col-md-offset-11"><button type="submit" class="btn btn-default">게시글 쓰기</button></div>

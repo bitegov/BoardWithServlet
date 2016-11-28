@@ -40,4 +40,9 @@ public class BoardManager {
         map.put("PASSWORD","1234");
         return daoToMSSQL.insert("writer",map);
     }
+
+    public boolean insertArticle(String title, String body, String email, String password){
+        System.out.println(title+body+email+password);
+        return true;
+    }
 }

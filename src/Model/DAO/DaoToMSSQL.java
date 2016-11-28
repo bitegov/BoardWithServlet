@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by jerry on 2016-11-13.
@@ -26,7 +27,7 @@ public class DaoToMSSQL {
     }
 
     //Todo 아래 DB 비밀번호 암호화 및 처리방법 추가 하기 2016-11-13
-    private static String connectionUrl = "jdbc:sqlserver://webboard.database.windows.net:1433;database=WebBoard;user=jb7959@webboard;password={*******};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;useUnicode=true;characterEncoding=UTF-8;";
+    private static String connectionUrl = "jdbc:sqlserver://webboard.database.windows.net:1433;database=WebBoard;user=jb7959@webboard;password={};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;useUnicode=true;characterEncoding=UTF-8;";
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver.class";
 
     public List<String> select(String select, String from) throws SQLException {
