@@ -42,7 +42,6 @@ public class DTOfactory {
         } else if (dtoType.equals("writer")) {
             responseList = new ArrayList<Writer>();
             while (!list.isEmpty()) {
-                System.out.println(list.toString());
                 Writer writer = new Writer(list.get(1),list.get(2),list.get(3));
                 responseList.add(writer);
                 //// TODO: 2016-11-17 DataStructure의 Queue가 필요한 상황!

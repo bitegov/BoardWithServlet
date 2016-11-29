@@ -2,7 +2,17 @@ package Model.DAO;
 
 
 import com.microsoft.sqlserver.jdbc.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +37,61 @@ public class DaoToMSSQL {
     }
 
     //Todo 아래 DB 비밀번호 암호화 및 처리방법 추가 하기 2016-11-13
-    private static String connectionUrl = "jdbc:sqlserver://webboard.database.windows.net:1433;database=WebBoard;user=jb7959@webboard;password={};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;useUnicode=true;characterEncoding=UTF-8;";
+    private static String connectionUrl = setURL();
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver.class";
+
+    private static String setURL(){
+        String id = "";
+        String pw = "";
+
+        try {
+            URL url = new URL("file:\\C:\\Users\\jerry\\Documents\\MSTEST.xml");
+            URLConnection connection = url.openConnection();
+            Document document = parseXML(connection.getInputStream());
+            NodeList nodeList = document.getElementsByTagName("DBMS_INFO");
+            id = document.getElementsByTagName("id").item(0).getTextContent(); //id
+            pw = document.getElementsByTagName("pw").item(0).getTextContent(); //pw
+            System.out.println(id+"@@"+pw);
+          /*//각 하위 태그별 구분시 필요
+          for(int i=0;i<nodeList.getLength();i++){
+                for(Node node = nodeList.item(i).getFirstChild(); node!=null; node=node.getNextSibling()){ //첫번째 자식을 시작으로 마지막까지 다음 형제를 실행
+                    if(node.getNodeName().equals("id")){
+                        id = node.getTextContent();
+                    }else if(node.getNodeName().equals("pw")){
+                        pw = node.getTextContent();
+                    }
+                }
+            }*/
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String url2 = "jdbc:sqlserver://webboard.database.windows.net:1433;database=WebBoard;user="+id+"@webboard;password={"+pw+"};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;useUnicode=true;characterEncoding=UTF-8;";
+        String result = url2;
+        return result;
+    }
+    //XML 파서
+    private static Document parseXML(InputStream stream) throws Exception{
+
+        DocumentBuilderFactory objDocumentBuilderFactory = null;
+        DocumentBuilder objDocumentBuilder = null;
+        Document doc = null;
+
+        try{
+
+            objDocumentBuilderFactory = DocumentBuilderFactory.newInstance();
+            objDocumentBuilder = objDocumentBuilderFactory.newDocumentBuilder();
+
+            doc = objDocumentBuilder.parse(stream);
+
+        }catch(Exception ex){
+            throw ex;
+        }
+        return doc;
+    }
 
     public List<String> select(String select, String from) throws SQLException {
         String SQL = "SELECT " + select + "FROM " + from;
