@@ -6,17 +6,21 @@ import java.util.List;
  * Created by jerry on 2016-11-13.
  */
 public class Writer {
+    private int id;
     private String name;
     private String email;
     private String password;
 
-
-    public Writer( String email, String name, String password) {
+    public Writer(int id, String name, String email, String password) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

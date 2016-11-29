@@ -98,8 +98,9 @@ public class DaoToMSSQL {
         return (List<String>) runSQL(SQL,"R");
     }
 
-    public List<String> select(String select, String from, String where) throws SQLException {
-        String SQL = "SELECT " + select + "FROM " + from + "Where " + where;
+    public List<String> select(String select, String from, String whereColumn, String whereValue) throws SQLException {
+        String SQL = "SELECT " + select + " FROM " + from + " Where " + whereColumn+"="+"\'"+ whereValue +"\'";
+        System.out.println(SQL);
         return (List<String>) runSQL(SQL,"R");
     }
 
@@ -109,7 +110,7 @@ public class DaoToMSSQL {
     Map은 중복가능, Set은 중복불가
     */
 
-    public boolean insert(String tableName, Map<String, String> columnNames) throws SQLException {
+    public boolean insert(String tableName, Map<String, String> columnNames) {
         String column = columnNames.keySet().toString();
         String values = columnNames.values().toString();
         column = column.replaceAll("\\[", "").replaceAll("\\]", "").trim();//대괄호삭제
@@ -119,7 +120,12 @@ public class DaoToMSSQL {
         String SQL = "insert into " + tableName + "(" + column + ")" + "values" + "(" + values + ")";
         System.out.println(SQL);
 
-        return (boolean)runSQL(SQL,"C");
+        try {
+            return (boolean)runSQL(SQL,"C");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private Object runSQL(String SQL, String typeOfCRUD) throws SQLException {

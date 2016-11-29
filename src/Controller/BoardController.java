@@ -36,7 +36,6 @@ public class BoardController extends HttpServlet {
             String body = httpServletRequest.getParameter("body");
             String email = httpServletRequest.getParameter("email");
             String password = httpServletRequest.getParameter("password");
-            System.out.println(title+body+email+password);
             boardManager.insertArticle(title,body,email,password);
         }else {
             httpServletRequest.getRequestDispatcher("HelloWorld").forward(httpServletRequest,httpServletResponse) ;

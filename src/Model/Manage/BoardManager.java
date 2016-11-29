@@ -25,8 +25,19 @@ public class BoardManager {
     }
 
     public Writer selectWriterByID(String writerId) throws SQLException {
-        List <String> tempList = daoToMSSQL.select("*", "writer","id="+writerId);
-        return new Writer(tempList.get(0),tempList.get(1),tempList.get(2));
+        Writer writer = null;
+        List <String> tempList = daoToMSSQL.select("*", "writer","id", writerId);
+        if(!tempList.isEmpty()){ new Writer(Integer.parseInt(tempList.get(0)),tempList.get(1),tempList.get(2),tempList.get(3));}
+        return writer;
+    }
+
+    public Writer selectWriterByEmail(String email) throws SQLException {
+        System.out.println("selectWriterByEmail 실행 중");
+        Writer writer = null;
+        List <String> tempList = daoToMSSQL.select("*", "writer","email",email);
+        if(!tempList.isEmpty()){writer = new Writer(Integer.parseInt(tempList.get(0)),tempList.get(1),tempList.get(2),tempList.get(3));}
+        System.out.println("selectWriterByEmail 종료");
+        return writer;
     }
 
     public boolean insertWriter(Writer writer) throws SQLException{
@@ -34,15 +45,36 @@ public class BoardManager {
     }
 
     public boolean insertWriter(String emailAddress, String name, String password) throws SQLException {
+        System.out.println("insertWriter 실행");
         Map<String,String>map = new HashMap<String, String>();
-        map.put("EMAIL","ttteeess@naver.com");
-        map.put("NAME","test1");
-        map.put("PASSWORD","1234");
+        map.put("EMAIL",emailAddress);
+        map.put("NAME",name);
+        map.put("PASSWORD",password);
         return daoToMSSQL.insert("writer",map);
     }
 
-    public boolean insertArticle(String title, String body, String email, String password){
-        System.out.println(title+body+email+password);
-        return true;
+    public boolean insertArticle(String title, String body, String email, String password)  {
+        Boolean returnValue = false;
+        System.out.println("insertArticle 실행 중");
+        Writer writer = null;
+        try {
+            writer = selectWriterByEmail(email);
+            if(writer==null){
+                insertWriter(email,email,password);
+                writer = selectWriterByEmail(email);
+            }
+            Map<String,String>map = new HashMap<String, String>();
+            map.put("writerID",Integer.toString(writer.getId()));
+            map.put("title",title);
+            map.put("body",body);
+            map.put("writingdate","20161129");
+            map.put("Article_NO","0");
+            map.put("Article_version","0");
+            System.out.println(title+body+email+password);
+            returnValue = daoToMSSQL.insert("article",map);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return returnValue;
     }
 }
